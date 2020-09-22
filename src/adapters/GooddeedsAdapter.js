@@ -13,7 +13,7 @@ class GooddeedsAdapter {
     getGooddeeds() { //make a fetch request to our base URL
       return fetch(this.baseUrl).then(res => res.json()) //PARSE json from response
     }
-  
+  //then returns that result to our deeds class
     createGooddeed(body) {
       const gooddeedCreateParams = {
         method: 'POST',

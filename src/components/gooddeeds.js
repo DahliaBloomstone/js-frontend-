@@ -20,7 +20,7 @@ class Gooddeeds {
     fetchAndLoadGooddeeds() { //use our adapter (equal to instance of adapter, which means we can get the deeds)
       this.adapter
         .getGooddeeds()
-        .then(gooddeedsJSON => //promise 
+        .then(gooddeedsJSON => //promise  
           gooddeedsJSON.forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
         )
         .then(this.render.bind(this))
