@@ -21,6 +21,8 @@ class Gooddeeds {
       this.adapter
         .getGooddeeds()
         .then(gooddeedsJSON => //promise  
+            //iterate over each deed, as we iterate we will push each individual object into this.gooddeeds 
+            //have access to array of deeds by calling this.gooddeeds in other methods 
           gooddeedsJSON.forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
         )
         .then(this.render.bind(this))
@@ -90,7 +92,8 @@ class Gooddeeds {
       return this.gooddeeds.map(gooddeed => gooddeed.render()).join('')
     }
   
-    render() {
+    render() { //render stuff to the dom 
       this.gooddeedsNode.innerHTML = `<ul>${this.gooddeedsHTML()}</ul>`
+      notesContainer.innerHTML = 'good deeds tracker'
     }
   }
