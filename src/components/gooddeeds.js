@@ -1,9 +1,9 @@
 class Gooddeeds {
     constructor() {
-      this.gooddeedss = []
+      this.gooddeeds = []
       this.initBindingsAndEventListeners()
       this.adapter = new GooddeedsAdapter()
-      this.fetchAndLoadGooddeeds()
+      this.fetchAndLoadGooddeeds() //invoke method 
     }
   
     initBindingsAndEventListeners() {
@@ -17,10 +17,10 @@ class Gooddeeds {
       this.body.addEventListener('blur', this.updateGooddeed.bind(this), true)
     }
   
-    fetchAndLoadGooddeeds() {
+    fetchAndLoadGooddeeds() { //use our adapter (equal to instance of adapter, which means we can get the deeds)
       this.adapter
         .getGooddeeds()
-        .then(gooddeedsJSON =>
+        .then(gooddeedsJSON => //promise 
           gooddeedsJSON.forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
         )
         .then(this.render.bind(this))
