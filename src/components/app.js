@@ -4,6 +4,8 @@
 class App {
     constructor() { //creates a new instance of gooddeeds class 
         console.log('app loaded')
-        this.gooddeeds = new GooddeedsAdapter()
+        this.gooddeeds = new Gooddeeds()
     }
 }
+//fires off constructor 
+//fires off gooddeeds

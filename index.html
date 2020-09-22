@@ -17,25 +17,26 @@
 <div class="container">
     <h1> Good Deeds APP</h1>
     <div id="new-gooddeed-container">
-        
-    </div>
     <form id="new-gooddeed-form">
-<input type="text"/>
-<input type="submit"/>
+<input type="text" name="gooddeed-body" id="new-gooddeed-body"/> 
+<input type="submit" value="Save Your Good Deed"/>
     </form>
-
-    <!--div to hold the current deeds-->
-    <div id="gooddeeds-container">
-
-    </div>
 </div>
+    <!--div to hold the current deeds-->
+   <div id="gooddeeds-content">
+    <ul id="gooddeeds-container">
+   
+    </div>
+    <div id="gooddeed-show">
 
+    </ul>
+</div>
+</div>
+</div>
 <script src="src/components/gooddeeds.js"></script>
 <script src="src/components/app.js"></script>
 <script src="src/adapters/GooddeedsAdapter.js"></script>
 <script src="src/index.js"></script>
-
- 
 
 </body>
 </html>

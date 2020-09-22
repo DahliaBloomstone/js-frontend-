@@ -2,10 +2,11 @@ class Gooddeeds {
     constructor() {
       this.gooddeeds = []
       this.initBindingsAndEventListeners()
-      this.adapter = new GooddeedsAdapter()
+      this.adapter = new GooddeedsAdapter() //creating new instance of deeds adapter, saving it in property called adapter 
       this.fetchAndLoadGooddeeds() //invoke method 
     }
   
+    
     initBindingsAndEventListeners() {
       this.gooddeedsForm = document.getElementById('new-gooddeed-form')
       this.gooddeedInput = document.getElementById('new-gooddeed-body')
@@ -16,13 +17,15 @@ class Gooddeeds {
       this.gooddeedsNode.addEventListener('click', this.handleGooddeedClick.bind(this))
       this.body.addEventListener('blur', this.updateGooddeed.bind(this), true)
     }
+
   
     fetchAndLoadGooddeeds() { //use our adapter (equal to instance of adapter, which means we can get the deeds)
       this.adapter
-        .getGooddeeds()
-        .then(gooddeedsJSON => //promise  
+        .getGooddeeds() 
+        .then(gooddeedsJSON =>  //promise  
             //iterate over each deed, as we iterate we will push each individual object into this.gooddeeds 
             //have access to array of deeds by calling this.gooddeeds in other methods 
+            //pushing a new deed instance into the deed array 
           gooddeedsJSON.forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
         )
         .then(this.render.bind(this))
@@ -93,7 +96,9 @@ class Gooddeeds {
     }
   
     render() { //render stuff to the dom 
+      //  console.log(this.gooddeeds) //array of deed objects 
       this.gooddeedsNode.innerHTML = `<ul>${this.gooddeedsHTML()}</ul>`
-      notesContainer.innerHTML = 'good deeds tracker'
+
+      //appending each individual deed w its content 
     }
   }
