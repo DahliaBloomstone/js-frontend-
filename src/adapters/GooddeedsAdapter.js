@@ -1,3 +1,5 @@
+//sole purpose of adapter: its only job is to communicate w the API
+//then hands that information to the front end 
 //what is going to talk to our backend API
 //object oriented javascript 
 
