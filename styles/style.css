@@ -35,7 +35,7 @@ body {
     padding: 20px;
   }
   
-  #notes-content {
+  #deeds-content {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 10px;
