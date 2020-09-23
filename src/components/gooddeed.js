@@ -1,3 +1,4 @@
+/*
 class Gooddeed {
     constructor(gooddeedJSON) {
       this.body = gooddeedJSON.body
