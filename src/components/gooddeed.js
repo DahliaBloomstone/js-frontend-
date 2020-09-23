@@ -1,10 +1,17 @@
-/*
-class Gooddeed {
+
+class Gooddeed { //create a new instance as we iterate over deed json array
     constructor(gooddeedJSON) {
-      this.body = gooddeedJSON.body
       this.id = gooddeedJSON.id
+      this.body = gooddeedJSON.body
     }
+
+
+  renderLi() {
+    return `<li>${this.body}</li>`
+  }
+}
   
+    /*
     renderShow() {
       return `<h3>${this.body}</h3>`
     }
@@ -15,6 +22,10 @@ class Gooddeed {
       )}' class='gooddeed-element'><a class="show-link" href='#'>${
         this.body
       }</a> <button data-action='edit-gooddeed'>Edit</button> <i data-action='delete-gooddeed' class="em em-scream_cat"></i></li>`
+   
     }
+ */
+ 
+ 
   }
   

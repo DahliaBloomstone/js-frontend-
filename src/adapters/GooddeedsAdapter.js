@@ -9,11 +9,11 @@
 //then parse json
 class GooddeedsAdapter {
     constructor() {
-      this.baseUrl = 'http://localhost:3000/gooddeeds'
+      this.baseUrl = 'http://localhost:3000/gooddeeds' //api url 
     }
   
     getGooddeeds() { //make a fetch request to our base URL
-      return fetch(this.baseUrl).then(res => res.json()
+      return fetch(this.baseUrl).then(res => res.json() //response object
       ) //PARSE json from response
     }
 }

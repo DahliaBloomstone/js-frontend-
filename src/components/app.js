@@ -7,5 +7,6 @@ class App {
         this.gooddeeds = new Gooddeeds()
     }
 }
-//fires off constructor 
+//whenever we invoke app 
+//fires off constructor  and deeds component 
 //fires off gooddeeds

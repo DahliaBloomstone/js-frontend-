@@ -1,13 +1,16 @@
 class Gooddeeds {
-    constructor() {
+    constructor() { //where a lot of our js code is gonna live (container)
       this.gooddeeds = []
-    //  this.BindingsAndEventListeners()
+     this.BindingsAndEventListeners()
       this.adapter = new GooddeedsAdapter() //creating new instance of deeds adapter, saving it in property called adapter 
       this.fetchAndLoadGooddeeds() //invoke method 
     }
   
-    /*
+    
     initBindingsAndEventListeners() {
+    this.gooddeedsContainer = document.getElementById('gooddeeds-container')
+    }
+      /*
       this.gooddeedsForm = document.getElementById('new-gooddeed-form')
       this.gooddeedInput = document.getElementById('new-gooddeed-body')
       this.gooddeedsNode = document.getElementById('gooddeeds-container')
@@ -17,14 +20,17 @@ class Gooddeeds {
       this.gooddeedsNode.addEventListener('click', this.handleGooddeedClick.bind(this))
       this.body.addEventListener('blur', this.updateGooddeed.bind(this), true)
     }
-*/
+    */
+
+
   
     fetchAndLoadGooddeeds() {
-        this.adapter
+        this.adapter //saving it in a property called adapter 
          .getGooddeeds()
          .then(gooddeeds => {
-            gooddeeds.forEach(gooddeed => this.gooddeeds.push(gooddeed))
-        })
+            gooddeeds.forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed))) //iterate over array, pushing the new deed instance onto the Deed container property which is set to an emptyr array 
+            console.log(this.gooddeeds) //once we are successful, we take the deeds from the server and iterate 
+          })
         .then(() => {
             this.render()
         })
@@ -110,11 +116,10 @@ class Gooddeeds {
     */
   
    render() { //render stuff to the dom 
-    console.log('welcome...')
     const gooddeedsContainer = document.getElementById('gooddeeds-container')
-    //gooddeedsContainer.innerHTML = 'BE A GOOD PERSON!'
-    console.log('my good deeds are:', this.gooddeeds)
-      //array of deed objects 
+    this.gooddeedsContainer.innerHTML = this.gooddeeds.map(gooddeed => gooddeed.renderLI()).join('')
+    //array of lis surrounded by a deed body 
+    //array of deed objects 
       //appending each individual deed w its content 
     }
 }
