@@ -1,0 +1,16 @@
+html {
+    background: ;
+  }
+  
+  #kitty{
+    position: absolute;
+    top: 100px;
+    right: 0;
+  }
+  
+  /* Write your solution here, mobile up */
+  @media only screen and (min-width: 1196px) {
+    #kitty {
+      left: 800px; }
+    }
+  }

@@ -20,11 +20,15 @@ class Gooddeeds {
 */
   
     fetchAndLoadGooddeeds() {
-        this.adapter.getGooddeeds().then(gooddeeds =>{
-            console.log(gooddeeds)
+        this.adapter
+         .getGooddeeds()
+         .then(gooddeeds => {
+            gooddeeds.forEach(gooddeed => this.gooddeeds.push(gooddeed))
+        })
+        .then(() => {
+            this.render()
         })
     }
-}
         
         
         //use our adapter (equal to instance of adapter, which means we can get the deeds)
@@ -105,12 +109,12 @@ class Gooddeeds {
 
     */
   
-  // render() { //render stuff to the dom 
-      //  console.log(this.gooddeeds) //array of deed objects 
-  //    this.gooddeedsNode.innerHTML = `<ul>${this.gooddeedsHTML()}</ul>`
-//console.log(this.gooddeeds)
-//const gooddeedsContainer = document.getElementById('gooddeed-container')
-//gooddeedsContainer.innerHTML = <li>Good Deed 1:</li><li>Good Deed 2:</li>
+   render() { //render stuff to the dom 
+    console.log('welcome...')
+    const gooddeedsContainer = document.getElementById('gooddeeds-container')
+    //gooddeedsContainer.innerHTML = 'BE A GOOD PERSON!'
+    console.log('my good deeds are:', this.gooddeeds)
+      //array of deed objects 
       //appending each individual deed w its content 
- //   }
- // }
+    }
+}

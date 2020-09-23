@@ -1,13 +1,15 @@
 body {
-    font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue',
-      Helvetica, Arial, 'Lucida Grande', sans-serif;
+    font-family: Bookman;
     font-weight: 300;
     line-height: 1.6em;
     font-size: 1.3em;
+    background-color: rgba(0, 0, 255, 0.3);
+    color: blue;
+    text-shadow: 2px 2px pink;
   }
   
   a {
-    color:pink;
+    color: black;
   }
   
   input {
@@ -38,3 +40,5 @@ body {
     grid-template-columns: 2fr 1fr;
     grid-gap: 10px;
   }
+
+  
