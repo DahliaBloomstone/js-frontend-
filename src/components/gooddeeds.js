@@ -15,9 +15,8 @@ class Gooddeeds {
     this.newGooddeedBody = document.getElementById('new-gooddeed-body') //grabbing new deed element 
     this.gooddeedForm = document.getElementById('new-gooddeed-form')
     this.gooddeedForm.addEventListener('submit', this.createGooddeed.bind(this)) //whenever form submitted, fire off a function, bind THIS TO THE GOOD DEEDS CLASS when execute create good deed 
-    this.gooddeedsContainer.addEventListener('dblclick', function(){
-      console.log('double clicked')
-    }) 
+    this.gooddeedsContainer.addEventListener('dblclick', this.GooddeedClick.bind
+    (this))
   }
 
     //define create gooddeed here: 
@@ -25,6 +24,7 @@ class Gooddeeds {
     //anytime you submit form, default behavior is to refresh page so that stops it 
     //everytime you add a deed, submit a post request to our rails API 
          //this is the form to be the Deeds class
+         //patch request will update actual content in browser 
     createGooddeed(e) {
       e.preventDefault()
       const value = this.newGooddeedBody.value 
@@ -34,7 +34,15 @@ class Gooddeeds {
         this.newGooddeedBody.value = '' //empty out what is in imput field 
         this.render() //render to page 
       })
+    } 
+
+    //pass in the event object 
+    GooddeedClick(e) {
+      const li = e.target
+      li.contentEditable = true  //class 
+      li.classList.add('editable') //css class list 
     }
+
 
     fetchAndLoadGooddeeds() {
         this.adapter //saving it in a property called adapter 
