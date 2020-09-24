@@ -20,17 +20,16 @@ class GooddeedsAdapter {
       const gooddeed = { //create deed object where the body property is equal to the value 
         body: value,
       }
+
       return fetch(this.baseUrl, {
         method: 'POST', 
         headers: {
           'content-type': 'application/json',
         },
         body: JSON.stringify({ gooddeed }), //stringify new object 
-      })
-      .then(res => res.json()) //send parse json object back to deeds component 
+      }).then(res => res.json()) //send parse json object back to deeds component 
     }
 
-  
     updateGooddeed(value, id) {
      const gooddeed = {
        body: value,  
@@ -42,8 +41,7 @@ class GooddeedsAdapter {
         'content-type': 'application/json',
       },
       body: JSON.stringify({ gooddeed }), //stringify new object 
-    })
-    .then(res => res.json()) //send parse json object back to deeds component 
+    }).then(res => res.json()) //send parse json object back to deeds component 
   }
 }
 
