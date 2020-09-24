@@ -12,12 +12,14 @@ class Gooddeeds {
     //event listener that listens to the clicking of the good deed 
     initBindingsAndEventListeners() {
     this.gooddeedsContainer = document.getElementById('gooddeeds-container')
+    this.body = document.querySelector('body')
     this.newGooddeedBody = document.getElementById('new-gooddeed-body') //grabbing new deed element 
     this.gooddeedForm = document.getElementById('new-gooddeed-form')
     this.gooddeedForm.addEventListener('submit', this.createGooddeed.bind(this)) //whenever form submitted, fire off a function, bind THIS TO THE GOOD DEEDS CLASS when execute create good deed 
     this.gooddeedsContainer.addEventListener('dblclick', this.GooddeedClick.bind
     (this))
-  }
+    this.body.addEventListener('blur', this.updateGooddeed.bind(this), true)
+  } //added a parent to a listener for blue and true
 
     //define create gooddeed here: 
     //pass in event object e 
@@ -40,7 +42,14 @@ class Gooddeeds {
     GooddeedClick(e) {
       const li = e.target
       li.contentEditable = true  //class 
+      li.focus()  //automatically add the cursor 
       li.classList.add('editable') //css class list 
+    }
+
+    updateGooddeed(e) {
+      const li = e.target
+      li.contentEditable = false
+      li.classList.remove('editable') //when we click away from it, it removes the class so no more padding and border, no longer editable  
     }
 
 

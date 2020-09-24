@@ -37,8 +37,13 @@ body {
   
   .editable {
     border: 1px solid pink;
-    padding: 10px;
+    padding: 10px solid pink;
     color: rgb(231, 169, 53); 
+  }
+
+  .column {
+    float: left;
+    width: 50%
   }
   
   #deeds-content {
