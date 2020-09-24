@@ -13,8 +13,21 @@ class GooddeedsAdapter {
     }
   
     getGooddeeds() { //make a fetch request to our base URL
-      return fetch(this.baseUrl).then(res => res.json() //response object
-      ) //PARSE json from response
+      return fetch(this.baseUrl).then(res => res.json()) //response object//PARSE json from response
+    }
+
+    createGooddeed(value) {
+      const gooddeed = { //create deed object where the body property is equal to the value 
+        body: value,
+      }
+      return fetch(this.baseUrl, {
+        method: 'POST', 
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({ gooddeed }), //stringify new object 
+      })
+      .then(res => res.json()) //send parse json object back to deeds component 
     }
 }
   //then returns that result to our deeds class

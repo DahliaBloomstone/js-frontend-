@@ -1,17 +1,33 @@
 class Gooddeeds {
     constructor() { //where a lot of our js code is gonna live (container)
       this.gooddeeds = []
-     this.initBindingsAndEventListeners()
       this.adapter = new GooddeedsAdapter() //creating new instance of deeds adapter, saving it in property called adapter 
+      this.initBindingsAndEventListeners()
       this.fetchAndLoadGooddeeds() //invoke method 
     }
   
-    
+    //to save deeds, we need to add more listeners. so go to the html, new gooddeeds form, 
     initBindingsAndEventListeners() {
     this.gooddeedsContainer = document.getElementById('gooddeeds-container')
+    this.newGooddeedBody = document.getElementById('new-gooddeed-body') //grabbing new deed element 
+    this.gooddeedForm = document.getElementById('new-gooddeed-form')
+    this.gooddeedForm.addEventListener('submit', this.createGooddeed.bind(this)) //whenever form submitted, fire off a function, bind THIS TO THE GOOD DEEDS CLASS when execute create good deed 
     }
 
-  
+    //define create gooddeed here: 
+    //pass in event object e 
+    //anytime you submit form, default behavior is to refresh page so that stops it 
+    //everytime you add a deed, submit a post request to our rails API 
+         //this is the form to be the Deeds class
+    createGooddeed(e) {
+      e.preventDefault()
+      const value = this.newGooddeedBody.value 
+
+      this.adapter.createGooddeed(value).then(gooddeed => {
+        console.log(gooddeed)
+      })
+    }
+
     fetchAndLoadGooddeeds() {
         this.adapter //saving it in a property called adapter 
          .getGooddeeds()

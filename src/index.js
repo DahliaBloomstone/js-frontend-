@@ -1,5 +1,4 @@
 const app = new App()
-console.log("Welcome!")
 
 // object oriented javascript 
 //create a new instance of app
