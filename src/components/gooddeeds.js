@@ -51,6 +51,7 @@ class Gooddeeds {
       li.contentEditable = false
       li.classList.remove('editable') //when we click away from it, it removes the class so no more padding and border, no longer editable  
       const newValue = li.innerHTML //need adapter to make update request 
+      const id = li.dataset.id //get data attribute, pass that id to update deed 
       this.adapter.updateGooddeed(newValue, id) //method in the adapter for patch request
     }
 

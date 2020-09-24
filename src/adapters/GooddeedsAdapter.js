@@ -36,7 +36,7 @@ class GooddeedsAdapter {
        body: value,  
      }
 
-     return fetch(`${this.baseUrl}/id`, {
+     return fetch(`${this.baseUrl}/${id}`, { //error when you don't interpolate id 
       method: 'PATCH', 
       headers: {
         'content-type': 'application/json',
