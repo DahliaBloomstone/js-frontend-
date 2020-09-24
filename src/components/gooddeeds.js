@@ -6,7 +6,8 @@ class Gooddeeds {
       this.fetchAndLoadGooddeeds() //invoke method 
     }
   
-    //to save deeds, we need to add more listeners. so go to the html, new gooddeeds form, 
+    //to save deeds, we need to add more listeners. so go to the html, new gooddeeds form,
+    //listeners: form to create a new deed  
     initBindingsAndEventListeners() {
     this.gooddeedsContainer = document.getElementById('gooddeeds-container')
     this.newGooddeedBody = document.getElementById('new-gooddeed-body') //grabbing new deed element 
@@ -24,7 +25,9 @@ class Gooddeeds {
       const value = this.newGooddeedBody.value 
 
       this.adapter.createGooddeed(value).then(gooddeed => {
-        console.log(gooddeed)
+        this.gooddeeds.push(new Gooddeed(gooddeed)) //create new instance of deed push to array
+        this.newGooddeedBody.value = '' //empty out what is in imput field 
+        this.render() //render to page 
       })
     }
 
@@ -33,7 +36,7 @@ class Gooddeeds {
          .getGooddeeds()
          .then(gooddeeds => {
             gooddeeds.forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed))) //iterate over array, pushing the new deed instance onto the Deed container property which is set to an emptyr array 
-            console.log(this.gooddeeds) //once we are successful, we take the deeds from the server and iterate 
+             //once we are successful, we take the deeds from the server and iterate 
           })
         .then(() => {
             this.render()
@@ -41,10 +44,11 @@ class Gooddeeds {
     }
   
    render() { //render stuff to the dom 
-    const gooddeedsContainer = document.getElementById('gooddeeds-container')
-    this.gooddeedsContainer.innerHTML = this.gooddeeds.map(gooddeed => gooddeed.renderLi()).join('')
+    this.gooddeedsContainer.innerHTML = this.gooddeeds.map(gooddeed => gooddeed.renderLi()).join
+    ('')
     //array of lis surrounded by a deed body 
     //array of deed objects 
       //appending each individual deed w its content 
     }
 }
+//changing innher html of that to be equal to a bunch of lis 

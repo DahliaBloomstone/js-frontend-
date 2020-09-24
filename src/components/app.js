@@ -3,7 +3,6 @@
 
 class App {
     constructor() { //creates a new instance of gooddeeds class 
-        console.log('app loaded')
         this.gooddeeds = new Gooddeeds()
     }
 }
