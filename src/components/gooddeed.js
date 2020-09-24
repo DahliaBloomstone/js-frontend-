@@ -27,5 +27,5 @@ class Gooddeed { //create a new instance as we iterate over deed json array
  */
  
  
-  }
+  
   

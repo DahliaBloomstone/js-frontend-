@@ -40,9 +40,6 @@
     <div class="heart-shape"></div>
 
 
-
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- link new stylesheet-->
@@ -106,6 +103,12 @@
     <center> 
 <div class="container">
     <h1> Good Deeds App</h1>
+
+    <!-- good deed list with seed data-->
+    <center><div id="gooddeeds-container">
+    </div></center>
+    
+
     <div id="new-gooddeed-container">
     <form id="new-gooddeed-form">
 <input type="text" name="gooddeed-body" id="new-gooddeed-body"/> 
@@ -116,8 +119,11 @@
 </div>
     <!--div to hold the current deeds-->
    <div id="gooddeeds-content">
+    
+    <!---
     <ul id="gooddeeds-container">
-    </ul>
+    </ul> -->
+    
     <!--individual good deed can see content-->
     <div id="gooddeed-show">
     </div>
@@ -130,8 +136,9 @@
 <script src="src/components/app.js"></script>
 <script src="src/adapters/GooddeedsAdapter.js"></script>
 <script src="src/index.js"></script>
+<script src="src/components/gooddeed.js"></script>
 
- 
+
 <i class="fas fa-heart"></i>
 <i class="fas fa-heart"></i>
 <i class="fas fa-heart"></i>
@@ -172,6 +179,8 @@
 <i class="fas fa-heart"></i>
 <i class="fas fa-heart"></i>
 <i class="fas fa-heart"></i>
+
+
 
 
 </body>
