@@ -6,8 +6,9 @@ class Gooddeed { //create a new instance as we iterate over deed json array
     }
 
 
+    //content editable allows us to edit the content of a single li 
   renderLi() {
-    return `<li>${this.body}</li>`
+    return `<li contenteditable="true">${this.body}</li>`
   }
 }
   

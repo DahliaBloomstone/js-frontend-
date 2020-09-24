@@ -7,6 +7,11 @@ body {
     color: blue;
     text-shadow: 2px 2px pink;
   }
+
+  ul {
+    text-align: center;
+    list-style-position: inside;
+}
   
   a {
     color: black;

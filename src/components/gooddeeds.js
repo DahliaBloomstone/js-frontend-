@@ -7,13 +7,18 @@ class Gooddeeds {
     }
   
     //to save deeds, we need to add more listeners. so go to the html, new gooddeeds form,
-    //listeners: form to create a new deed  
+    //listeners: form to create a new deed 
+    //bindings to bind different dom elements  
+    //event listener that listens to the clicking of the good deed 
     initBindingsAndEventListeners() {
     this.gooddeedsContainer = document.getElementById('gooddeeds-container')
     this.newGooddeedBody = document.getElementById('new-gooddeed-body') //grabbing new deed element 
     this.gooddeedForm = document.getElementById('new-gooddeed-form')
     this.gooddeedForm.addEventListener('submit', this.createGooddeed.bind(this)) //whenever form submitted, fire off a function, bind THIS TO THE GOOD DEEDS CLASS when execute create good deed 
-    }
+    this.gooddeedsContainer.addEventListener('dblclick', function(){
+      console.log('double clicked')
+    }) 
+  }
 
     //define create gooddeed here: 
     //pass in event object e 
@@ -51,4 +56,4 @@ class Gooddeeds {
       //appending each individual deed w its content 
     }
 }
-//changing innher html of that to be equal to a bunch of lis 
+//changing innher html of that to be equal to a bunch of lis, (the deeds bullet point list)
