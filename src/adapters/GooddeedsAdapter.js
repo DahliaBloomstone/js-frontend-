@@ -29,32 +29,24 @@ class GooddeedsAdapter {
       })
       .then(res => res.json()) //send parse json object back to deeds component 
     }
+
+  
+    updateGooddeed(value, id) {
+     const gooddeed = {
+       body: value,  
+     }
+
+     return fetch(`${this.baseUrl}/id`, {
+      method: 'PATCH', 
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ gooddeed }), //stringify new object 
+    })
+    .then(res => res.json()) //send parse json object back to deeds component 
+  }
 }
-  //then returns that result to our deeds class
-   // createGooddeed(body) {
-     // const gooddeedCreateParams = {
-     //   method: 'POST',
-     //   headers: {
-      //    'Content-Type': 'application/json'
-     //   },
-     //   body: JSON.stringify({ body })
-    //  }
-     // return fetch(this.baseUrl, gooddeedCreateParams).then(res => res.json())
-  //  }
-  
-   // updateGooddeed(body, id) {
-    //  const gooddeedUpdateParams = {
-     //   method: 'PUT',
-    //    headers: {
-     //     'Content-Type': 'application/json'
-    //    },
-    //    body: JSON.stringify({ body })
-  //    }
-  
-   //   return fetch(`${this.baseUrl}/${id}`, gooddeedUpdateParams).then(res =>
-   //     res.json()
-   //   )
-  //  }
+
   
    // deleteGooddeed(gooddeedId) {
    //   const gooddeedDeleteParams = {

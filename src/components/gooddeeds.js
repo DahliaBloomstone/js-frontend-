@@ -26,7 +26,7 @@ class Gooddeeds {
     //anytime you submit form, default behavior is to refresh page so that stops it 
     //everytime you add a deed, submit a post request to our rails API 
          //this is the form to be the Deeds class
-         //patch request will update actual content in browser 
+         //patch request will update actual content in browser, need to grab innher html of li
     createGooddeed(e) {
       e.preventDefault()
       const value = this.newGooddeedBody.value 
@@ -50,6 +50,8 @@ class Gooddeeds {
       const li = e.target
       li.contentEditable = false
       li.classList.remove('editable') //when we click away from it, it removes the class so no more padding and border, no longer editable  
+      const newValue = li.innerHTML //need adapter to make update request 
+      this.adapter.updateGooddeed(newValue, id) //method in the adapter for patch request
     }
 
 
