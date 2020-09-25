@@ -24,7 +24,7 @@ body {
   .container {
     width: 960px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 20px;
   }
   
   ul {
@@ -55,7 +55,7 @@ body {
   .submit{color:blue;background:#ffffa0;}
 
   button {
-    font-size: .99em;
+    font-size: .80em;
     color: rgb(207, 140, 202);
     background-color:blue;
     border-radius: 10px;
