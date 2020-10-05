@@ -1,5 +1,5 @@
 
-//sole purpose of adapter: its only job is to communicate w the API
+//sole purpose of adapter: its only job is to communicate w the API backend 
 //then hands that information to the front end 
 //what is going to talk to our backend API
 //object oriented javascript 
@@ -17,50 +17,39 @@ class GooddeedsAdapter {
     return fetch(this.baseUrl).then(res => res.json()) //response object//PARSE json from response
   }
 
-  createGooddeed(value) {
-    const gooddeed = { //create deed object where the body property is equal to the value 
-      body: value,
-    }
-
-    return fetch(this.baseUrl, {
+  createGooddeed(body) {
+    const gooddeedCreateParams = { //create deed object where the body property is equal to the value 
       method: 'POST', 
       headers: {
-        'content-type': 'application/json',
+        "Content-Type": 'application/json',
       },
-      body: JSON.stringify({ gooddeed }), //stringify new object 
-    }).then(res => res.json()) //send parse json object back to deeds component 
+      body: JSON.stringify({ body }), //stringify new object 
+    }
+      return fetch(this.baseUrl, gooddeedCreateParams).then(res => res.json())
+    }
+
+    updateGooddeed(body, id) {
+      const gooddeedUpdateParams = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ body })
+      }
+  
+      return fetch(`${this.baseUrl}/${id}`, gooddeedUpdateParams).then(res =>
+        res.json()
+      )
+    }
+//fetch returns a "promise" for a Response object which has promise creators for json, text
+    deleteGooddeed(gooddeedId) {
+      const gooddeedDeleteParams = {
+        method: 'DELETE', 
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+      return fetch(`${this.baseUrl}/${gooddeedId}`, gooddeedDeleteParams).then(res => res.json()
+      )
+    }
   }
-
-  updateGooddeed(value, id) {
-   const gooddeed = {
-     body: value,  
-   }
-
-   return fetch(`${this.baseUrl}/${id}`, { //error when you don't interpolate id 
-    method: 'PATCH', 
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({ gooddeed }), //stringify new object 
-  }).then(res => res.json()) //send parse json object back to deeds component 
-}
-}
-
-
- // deleteGooddeed(gooddeedId) {
- //   const gooddeedDeleteParams = {
-  //    method: 'DELETE',
-  //    headers: {
-  //      'Content-Type': 'application/json'
-  //    }
-  //  }
-   // return fetch(`${this.baseUrl}/${gooddeedId}`, gooddeedDeleteParams).then(res =>
-    //  res.json()
-  //  )
- // }
-//}
-
-/*
-adapter = new GooddeedsAdapter() // method as instance method 
-//const gooddeeds = adapter.getGooddeeds() //get our particular deeds from the database
-*/

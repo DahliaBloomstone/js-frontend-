@@ -106,6 +106,13 @@ body {
   top: -100px;
   right: 0px;
 }
+
+
+    background-color: rgba(0, 0, 255, 0.3);
+
+
+
+
 */
 
   
@@ -159,3 +166,9 @@ body {
   }
 
   
+  #image {
+    height: 100px;
+    width: 150px;
+  background: 
+  url('https://i.ibb.co/Z2bS5QS/a2784bf6b27a8d9b34cb0b3aa0d94c17.jpg') 0px 0px;
+  }

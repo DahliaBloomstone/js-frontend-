@@ -1,8 +1,8 @@
 class Gooddeeds {
   constructor() { //where a lot of our js code is gonna live (container)
     this.gooddeeds = []
-    this.adapter = new GooddeedsAdapter() //creating new instance of deeds adapter, saving it in property called adapter 
     this.initBindingsAndEventListeners()
+    this.adapter = new GooddeedsAdapter() //creating new instance of deeds adapter, saving it in property called adapter 
     this.fetchAndLoadGooddeeds() //invoke method 
   }
 
@@ -10,18 +10,44 @@ class Gooddeeds {
   //listeners: form to create a new deed 
   //bindings to bind different dom elements  
   //event listener that listens to the clicking of the good deed 
-  initBindingsAndEventListeners() {
-  this.gooddeedsContainer = document.getElementById('gooddeeds-container')
-  this.body = document.querySelector('body')
-  this.newGooddeedBody = document.getElementById('new-gooddeed-body') //grabbing new deed element 
-  this.gooddeedForm = document.getElementById('new-gooddeed-form')
-  this.gooddeedForm.addEventListener('submit', this.createGooddeed.bind(this)) //whenever form submitted, fire off a function, bind THIS TO THE GOOD DEEDS CLASS when execute create good deed 
-  this.gooddeedsContainer.addEventListener('dblclick', this.GooddeedClick.bind
-  (this))
-  this.body.addEventListener('blur', this.updateGooddeed.bind(this), true)
-} //added a parent to a listener for blue and true
+  //    }</a> <button data-action='edit-gooddeed'>Edit</button> <button data-action='delete-gooddeed'>Delete</button></i></li>`
 
-  //define create gooddeed here: 
+  initBindingsAndEventListeners() {
+   
+    //make sure page is loaded first, then function
+    document.addEventListener("DOMContentLoaded", function() {
+      console.log("The DOM has loaded");
+    });
+
+    this.gooddeedsForm = document.getElementById('new-gooddeed-form')
+    this.gooddeedInput = document.getElementById('new-gooddeed-body')
+    this.gooddeedsNode = document.getElementById('gooddeeds-container')
+    this.gooddeedShowNode = document.getElementById('gooddeed-show')
+  
+    //? put it in my index.html
+   // this.gooddeedInput = document.getElementById('delete-gooddeed')
+   // this.gooddeedInput = document.getElementById('edit-goodeed')
+
+    this.body = document.querySelector('body')
+    this.gooddeedsForm.addEventListener('submit',this.handleAddGooddeed.bind(this))
+   
+    //have methods to edit and delete 
+    this.gooddeedsNode.addEventListener('click',this.handleDeleteGooddeed.bind(this))
+    this.gooddeedsNode.addEventListener('click', this.handleEditGooddeed.bind(this))
+
+    //this.gooddeedsForm.addEventListener('onmouseover')
+  }
+
+  fetchAndLoadGooddeeds() {
+    this.adapter.getGooddeeds() //saving it in property called adapter
+     //iterate over array, pushing the new deed instance onto the Deed container property which is set to an emptyr array 
+              //once we are successful, we take the deeds from the server and iterate 
+    .then( gooddeedsJSON => gooddeedsJSON.forEach( gooddeed => this.gooddeeds.push( new Gooddeed(gooddeed) )))
+      .then( this.render.bind(this))
+      .catch(error => console.log(error))
+  }
+
+   //define create gooddeed here: 
   //pass in event object e 
   //anytime you submit form, default behavior is to refresh page so that stops it 
   //everytime you add a deed, submit a post request to our rails API 
@@ -38,42 +64,91 @@ class Gooddeeds {
     })
   } 
 
-  //pass in the event object 
-  GooddeedClick(e) {
-    const li = e.target
-    li.contentEditable = true  //class 
-    li.focus()  //automatically add the cursor 
-    li.classList.add('editable') //css class list 
-  }
-
-  updateGooddeed(e) {
-    const li = e.target
-    li.contentEditable = false
-    li.classList.remove('editable') //when we click away from it, it removes the class so no more padding and border, no longer editable  
-    const newValue = li.innerHTML //need adapter to make update request 
-    const id = li.dataset.id //get data attribute, pass that id to update deed 
-    this.adapter.updateGooddeed(newValue, id) //method in the adapter for patch request
-  }
-
-
-  fetchAndLoadGooddeeds() {
-      this.adapter //saving it in a property called adapter 
-       .getGooddeeds()
-       .then(gooddeeds => {
-          gooddeeds.forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed))) //iterate over array, pushing the new deed instance onto the Deed container property which is set to an emptyr array 
-           //once we are successful, we take the deeds from the server and iterate 
-        })
-      .then(() => {
-          this.render()
+  
+  //target: whatever triggers event, have access to it
+  //method in adapter for patch request 
+  updateGooddeed() {
+    if (event.target.className.includes('gooddeed-element')) {
+      const { target } = event
+      target.contentEditable = false
+      target.classList.remove('editable')
+      const body = event.target.innerHTML
+      const gooddeedId = target.dataset.gooddeedid
+      this.adapter.updateGooddeed(body, gooddeedId).then(updatedGooddeed => {
+        this.gooddeeds = this.gooddeeds.map(
+          n => (n.id === updatedGooddeed.id ? new Gooddeed(updatedGooddeed) : n)
+        )
+        this.render()
       })
+    }
   }
 
- render() { //render stuff to the dom 
-  this.gooddeedsContainer.innerHTML = this.gooddeeds.map(gooddeed => gooddeed.renderLi()).join
-  ('')
-  //array of lis surrounded by a deed body 
-  //array of deed objects 
-    //appending each individual deed w its content 
+  handleAddGooddeed() {
+  event.preventDefault() 
+    const body = this.gooddeedInput.value
+    this.adapter.createGooddeed(body)
+    .then( (gooddeedJSON) => this.gooddeeds.push(new Gooddeed(gooddeedJSON)) )
+    .then(  this.render.bind(this) )
+    .then( () => this.gooddeedInput.value = '' )
+  }
+
+  handleEditGooddeed() {
+    const { parentElement: target } = event.target
+    if (target.className == 'gooddeed-element') {
+      target.classList.add('editable')
+      const gooddeedId = target.dataset.id
+      const gooddeed = this.gooddeeds.find(n => n.id == gooddeedId)
+      target.contentEditable = true
+      target.innerHTML = gooddeed.body //body property doesn't exist?
+      //returns a string, representing the HTML content of an element
+
+      target.focus()
+      //edit action console @@hello shows up when clicked 
+      console.log('@@hello')
+    }
+  }
+
+  handleGooddeedClick() {
+    if (
+      event.target.dataset.action === 'delete-gooddeed' &&
+      event.target.parentElement.classList.contains('gooddeed-element')
+    ) {
+      const gooddeedId = event.target.parentElement.dataset.gooddeedid
+      this.adapter.deleteGooddeed(gooddeedId).then(resp => this.removeDeletedGooddeed(resp))
+    } else if (event.target.dataset.action === 'edit-gooddeed') {
+      this.toggleEditGooddeed()
+    } else if (event.target.className === 'show-link') {
+      debugger
+      const gooddeedId = event.target.parentElement.dataset.gooddeedid
+      const gooddeed = this.gooddeeds.find(gooddeed => gooddeed.id === +gooddeedId)
+      this.gooddeedShowNode.innerHTML = gooddeed.renderShow()
+    }
+  }
+
+
+
+  handleDeleteGooddeed() {
+    if (event.target.dataset.action === 'delete-gooddeed' && event.target.parentElement.classList.contains("gooddeed-element")) {
+      const gooddeedId = event.target.parentElement.dataset.gooddeedid
+      this.adapter.deleteGooddeed(gooddeedId)
+      .then( resp => this.removeDeletedGooddeed(resp) )
+      //something is happening, @@goodbye shows up in the console.
+      console.log('@@goodbye')
+    }
+  }
+
+  removeDeletedGooddeed(deleteResponse) {
+    this.gooddeeds = this.gooddeeds.filter( gooddeed => gooddeed.id !== deleteResponse.gooddeedId )
+    this.render()
+  }
+
+  //render stuff to the dom 
+  //appending each individual deed w content 
+  gooddeedsHTML() {
+    return this.gooddeeds.map( gooddeed => gooddeed.render() ).join('')
+  }
+
+  render() {
+    this.gooddeedsNode.innerHTML = `<ul>${this.gooddeedsHTML()}</ul>`
   }
 }
-//changing innher html of that to be equal to a bunch of lis, (the deeds bullet point list)
