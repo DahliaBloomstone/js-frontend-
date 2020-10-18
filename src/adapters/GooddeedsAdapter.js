@@ -1,29 +1,19 @@
-
-//sole purpose of adapter: its only job is to communicate w the API backend 
-//then hands that information to the front end 
-//what is going to talk to our backend API
-//object oriented javascript 
-
-//just an object w a constructor 
-//whenever we instantiate that adapter it will set a base url
-//willl have ability to call get good deeds 
-//then parse json
 class GooddeedsAdapter {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/gooddeeds' //api url 
+    this.baseUrl = 'http://localhost:3000/gooddeeds' 
   }
 
-  getGooddeeds() { //make a fetch request to our base URL
-    return fetch(this.baseUrl).then(res => res.json()) //response object//PARSE json from response
+  getGooddeeds() { 
+    return fetch(this.baseUrl).then(res => res.json())
   }
 
   createGooddeed(body) {
-    const gooddeedCreateParams = { //create deed object where the body property is equal to the value 
+    const gooddeedCreateParams = { 
       method: 'POST', 
       headers: {
         "Content-Type": 'application/json',
       },
-      body: JSON.stringify({ body }), //stringify new object 
+      body: JSON.stringify({ body }), 
     }
       return fetch(this.baseUrl, gooddeedCreateParams).then(res => res.json())
     }
@@ -37,11 +27,10 @@ class GooddeedsAdapter {
         body: JSON.stringify({ body })
       }
   
-      return fetch(`${this.baseUrl}/${id}`, gooddeedUpdateParams).then(res =>
-        res.json()
+      return fetch(`${this.baseUrl}/${id}`, gooddeedUpdateParams).then(res => res.json()
       )
     }
-//fetch returns a "promise" for a Response object which has promise creators for json, text
+
     deleteGooddeed(gooddeedId) {
       const gooddeedDeleteParams = {
         method: 'DELETE', 

@@ -1,86 +1,97 @@
-class Gooddeeds {
-  constructor() { //where a lot of our js code is gonna live (container)
+class Gooddeeds { 
+  constructor() { 
     this.gooddeeds = []
+    this.gooddeedId = []
     this.initBindingsAndEventListeners()
-    this.adapter = new GooddeedsAdapter() //creating new instance of deeds adapter, saving it in property called adapter 
-    this.fetchAndLoadGooddeeds() //invoke method 
+    this.adapter = new GooddeedsAdapter() 
+    this.fetchAndLoadGooddeeds()  
   }
 
-  //to save deeds, we need to add more listeners. so go to the html, new gooddeeds form,
-  //listeners: form to create a new deed 
-  //bindings to bind different dom elements  
-  //event listener that listens to the clicking of the good deed 
-  //    }</a> <button data-action='edit-gooddeed'>Edit</button> <button data-action='delete-gooddeed'>Delete</button></i></li>`
-
   initBindingsAndEventListeners() {
-   
-    //make sure page is loaded first, then function
-    document.addEventListener("DOMContentLoaded", function() {
+       document.addEventListener("DOMContentLoaded", function() {
       console.log("The DOM has loaded");
     });
-
     this.gooddeedsForm = document.getElementById('new-gooddeed-form')
     this.gooddeedInput = document.getElementById('new-gooddeed-body')
     this.gooddeedsNode = document.getElementById('gooddeeds-container')
     this.gooddeedShowNode = document.getElementById('gooddeed-show')
   
-    //? put it in my index.html
-   // this.gooddeedInput = document.getElementById('delete-gooddeed')
-   // this.gooddeedInput = document.getElementById('edit-goodeed')
-
     this.body = document.querySelector('body')
     this.gooddeedsForm.addEventListener('submit',this.handleAddGooddeed.bind(this))
    
-    //have methods to edit and delete 
+    // methods to edit and delete 
     this.gooddeedsNode.addEventListener('click',this.handleDeleteGooddeed.bind(this))
     this.gooddeedsNode.addEventListener('click', this.handleEditGooddeed.bind(this))
 
-    //this.gooddeedsForm.addEventListener('onmouseover')
-  }
+    //ATTEMPT #1: 
+   // this.gooddeedsNode.addEventListener('click', this.fetchAndLoadGooddeeds(this))
+   
+    //<button onclick="sortGooddeeds()">Sort</button>
+    //const gooddeeds = [];
+    //sortGooddeeds() {
+     // gooddeeds.sort();
+     // document.getElementById("gooddeeds-container").innerHTML = gooddeeds;
+   // }
 
+   //ATTEMPT #2: 
+  // this.gooddeedsNode.addEventListener('click', this.fetchAndLoadGooddeeds(this))
+
+  // sortGooddeeds() {
+  // this.gooddeeds.sort(a, b) {return a - b});
+  // }
+
+
+  }
+  //add sort method
+  //const gooddeeds = []
   fetchAndLoadGooddeeds() {
-    this.adapter.getGooddeeds() //saving it in property called adapter
-     //iterate over array, pushing the new deed instance onto the Deed container property which is set to an emptyr array 
-              //once we are successful, we take the deeds from the server and iterate 
+   // gooddeed.sort();
+   /// console.log(gooddeeds);
+    this.adapter.getGooddeeds()
     .then( gooddeedsJSON => gooddeedsJSON.forEach( gooddeed => this.gooddeeds.push( new Gooddeed(gooddeed) )))
       .then( this.render.bind(this))
       .catch(error => console.log(error))
+   // gooddeed.sort
+
   }
 
-   //define create gooddeed here: 
-  //pass in event object e 
-  //anytime you submit form, default behavior is to refresh page so that stops it 
-  //everytime you add a deed, submit a post request to our rails API 
-       //this is the form to be the Deeds class
-       //patch request will update actual content in browser, need to grab innher html of li
+  //ATTEMPT #3:
+//sortGooddeeds() {
+//  this.adapter.getGooddeeds()
+ // .then( gooddeedsJSON => gooddeedsJSON.forEach( gooddeed => this.gooddeeds.push( new Gooddeed(gooddeed) )))
+ //.then( this.render.gooddeeds.sort())
+ // console.log(gooddeeds);
+ // this.render()
+//}
+
+//sortGooddeeds(gooddeed) {
+//  return gooddeed.sort(function(a, b) {
+ //   return a -b;
+//  })
+///}
+//sortGooddeeds
+
+
   createGooddeed(e) {
-    e.preventDefault()
+    e.preventDefault() //preventing button from normal html being fired off
     const value = this.newGooddeedBody.value 
 
     this.adapter.createGooddeed(value).then(gooddeed => {
-      this.gooddeeds.push(new Gooddeed(gooddeed)) //create new instance of deed push to array
+      this.gooddeeds.push(new Gooddeed(gooddeed))
+      //gooddeed.sort()   
+      //console.log(gooddeed)                                     //create new instance of deed push to array
       this.newGooddeedBody.value = '' //empty out what is in imput field 
-      this.render() //render to page 
+      this.render() 
     })
   } 
 
-  
-  //target: whatever triggers event, have access to it
-  //method in adapter for patch request 
   updateGooddeed() {
-    if (event.target.className.includes('gooddeed-element')) {
-      const { target } = event
-      target.contentEditable = false
-      target.classList.remove('editable')
-      const body = event.target.innerHTML
-      const gooddeedId = target.dataset.gooddeedid
-      this.adapter.updateGooddeed(body, gooddeedId).then(updatedGooddeed => {
-        this.gooddeeds = this.gooddeeds.map(
-          n => (n.id === updatedGooddeed.id ? new Gooddeed(updatedGooddeed) : n)
-        )
-        this.render()
-      })
-    }
+  const li = e.target 
+  li.contentEditable = false 
+  li.classList.remove('editable')
+  const newValue = li.innerHTML
+  const id = li.dataset.id 
+  this.adapter.updateGooddeed(newValue, id)
   }
 
   handleAddGooddeed() {
@@ -99,9 +110,8 @@ class Gooddeeds {
       const gooddeedId = target.dataset.id
       const gooddeed = this.gooddeeds.find(n => n.id == gooddeedId)
       target.contentEditable = true
-      target.innerHTML = gooddeed.body //body property doesn't exist?
+      target.innerHTML = gooddeed.body 
       //returns a string, representing the HTML content of an element
-
       target.focus()
       //edit action console @@hello shows up when clicked 
       console.log('@@hello')
@@ -125,9 +135,8 @@ class Gooddeeds {
     }
   }
 
-
-
   handleDeleteGooddeed() {
+    //debugger
     if (event.target.dataset.action === 'delete-gooddeed' && event.target.parentElement.classList.contains("gooddeed-element")) {
       const gooddeedId = event.target.parentElement.dataset.gooddeedid
       this.adapter.deleteGooddeed(gooddeedId)
@@ -142,8 +151,6 @@ class Gooddeeds {
     this.render()
   }
 
-  //render stuff to the dom 
-  //appending each individual deed w content 
   gooddeedsHTML() {
     return this.gooddeeds.map( gooddeed => gooddeed.render() ).join('')
   }
@@ -152,3 +159,5 @@ class Gooddeeds {
     this.gooddeedsNode.innerHTML = `<ul>${this.gooddeedsHTML()}</ul>`
   }
 }
+
+
