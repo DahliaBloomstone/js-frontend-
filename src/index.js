@@ -13,6 +13,28 @@ function createDeleteButton(gooddeed, li) {
   li.appendChild(btn)
 }
 
+//gooddeeds.sort((a, b) => a.gooddeed.localeCompare(b.gooddeed))
+
+
+//SORT METHOD
+//let sortByAlpha = document.getElementById('sort-by-alpha')
+//sortByAlpha.addEventListener('click', this.fetchByAlphaFunction().bind(this))
+//console.log(sortByAlpha)
+//debugger
+//function fetchByAlphaFunction() {
+   // debugger
+    //this.adapter.getGooddeeds()
+    //.then( gooddeedsJSON => gooddeedsJSON.forEach( gooddeed => this.gooddeeds.push( new Gooddeed(gooddeed) )))
+   // .then( gooddeeds => sortByAlphaFunction(gooddeeds))
+   // .catch(error => console.log(error))
+//}
+//function sortByAlphaFunction(gooddeeds) {
+ // console.log(gooddeeds)
+//}
+
+
+//game 
+
 let dodger = document.getElementById('dodger');
 
 function moveDodgerLeft() {

@@ -2,9 +2,9 @@ class Gooddeeds {
   constructor() { 
     this.gooddeeds = []
     this.gooddeedId = []
-    this.initBindingsAndEventListeners()
     this.adapter = new GooddeedsAdapter() 
     this.fetchAndLoadGooddeeds()  
+    this.initBindingsAndEventListeners()
   }
 
   initBindingsAndEventListeners() {
@@ -22,55 +22,18 @@ class Gooddeeds {
     // methods to edit and delete 
     this.gooddeedsNode.addEventListener('click',this.handleDeleteGooddeed.bind(this))
     this.gooddeedsNode.addEventListener('click', this.handleEditGooddeed.bind(this))
+}
 
-    //ATTEMPT #1: 
-   // this.gooddeedsNode.addEventListener('click', this.fetchAndLoadGooddeeds(this))
-   
-    //<button onclick="sortGooddeeds()">Sort</button>
-    //const gooddeeds = [];
-    //sortGooddeeds() {
-     // gooddeeds.sort();
-     // document.getElementById("gooddeeds-container").innerHTML = gooddeeds;
-   // }
-
-   //ATTEMPT #2: 
-  // this.gooddeedsNode.addEventListener('click', this.fetchAndLoadGooddeeds(this))
-
-  // sortGooddeeds() {
-  // this.gooddeeds.sort(a, b) {return a - b});
-  // }
-
-
-  }
-  //add sort method
-  //const gooddeeds = []
-  fetchAndLoadGooddeeds() {
-   // gooddeed.sort();
-   /// console.log(gooddeeds);
-    this.adapter.getGooddeeds()
-    .then( gooddeedsJSON => gooddeedsJSON.forEach( gooddeed => this.gooddeeds.push( new Gooddeed(gooddeed) )))
-      .then( this.render.bind(this))
-      .catch(error => console.log(error))
-   // gooddeed.sort
-
-  }
-
-  //ATTEMPT #3:
-//sortGooddeeds() {
-//  this.adapter.getGooddeeds()
- // .then( gooddeedsJSON => gooddeedsJSON.forEach( gooddeed => this.gooddeeds.push( new Gooddeed(gooddeed) )))
- //.then( this.render.gooddeeds.sort())
- // console.log(gooddeeds);
- // this.render()
-//}
-
-//sortGooddeeds(gooddeed) {
-//  return gooddeed.sort(function(a, b) {
- //   return a -b;
-//  })
-///}
-//sortGooddeeds
-
+fetchAndLoadGooddeeds() {
+  this.adapter
+    .getGooddeeds()
+    .then(gooddeeds => {
+      gooddeeds.sort((a, b) => a.id - b.id).forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
+    })
+    .then(() => {
+      this.render()
+    })
+}
 
   createGooddeed(e) {
     e.preventDefault() //preventing button from normal html being fired off
