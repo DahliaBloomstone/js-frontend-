@@ -27,34 +27,40 @@ class Gooddeeds {
 fetchAndLoadGooddeeds() {
   this.adapter
     .getGooddeeds()
-    .then(gooddeeds => {
-     gooddeeds.sort((a, b) => a.id - b.id).forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
+   .then(gooddeeds => {
+     //debugger
+     //gooddeeds.sort((a, b) => a.body - b.body).forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
+     gooddeeds.sort(function(a, b) {
+      if (a.body < b.body) {
+          return -1
+      } else {
+          return 1
+      }
+    }).forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
     })
     .then(() => {
       this.render()
     })
 }
 
-//fetchAndLoadGooddeeds() {
- // this.adapter
- // .getGooddeeds()
- // .then(response => response.json())
- // .then(gooddeeds => sortGooddeeds(gooddeeds))
-//}
-///sortGooddeeds(gooddeeds) {
-  //gooddeeds.sort((a, b) => return a.id - b.id).forEach(gooddeed => this.gooddeeps.push(new Gooddeed(gooddeed)))
-//}
-
-
 
   createGooddeed(e) {
     e.preventDefault() //preventing button from normal html being fired off
     const value = this.newGooddeedBody.value 
-
+debugger
     this.adapter.createGooddeed(value).then(gooddeed => {
       this.gooddeeds.push(new Gooddeed(gooddeed))
+      
+      this.gooddeeds = this.gooddeeds.sort(function(a, b) {
+        if (a.body < b.body) {
+            return -1
+        } else {
+            return 1
+        }})
+       // debugger
       //gooddeed.sort()   
       //console.log(gooddeed)                                     //create new instance of deed push to array
+      
       this.newGooddeedBody.value = '' //empty out what is in imput field 
       this.render() 
     })

@@ -13,7 +13,7 @@ class GooddeedsAdapter {
       headers: {
         "Content-Type": 'application/json',
       },
-      body: JSON.stringify({ body }), 
+      body: JSON.stringify( { body }), 
     }
       return fetch(this.baseUrl, gooddeedCreateParams).then(res => res.json())
     }
