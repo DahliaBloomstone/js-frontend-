@@ -24,12 +24,14 @@ class Gooddeeds {
     this.gooddeedsNode.addEventListener('click', this.handleEditGooddeed.bind(this))
 }
 
+
 fetchAndLoadGooddeeds() {
   this.adapter
     .getGooddeeds()
    .then(gooddeeds => {
      //debugger
      //gooddeeds.sort((a, b) => a.body - b.body).forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
+     //callback function
      gooddeeds.sort(function(a, b) {
       if (a.body < b.body) {
           return -1
@@ -39,6 +41,7 @@ fetchAndLoadGooddeeds() {
     }).forEach(gooddeed => this.gooddeeds.push(new Gooddeed(gooddeed)))
     })
     .then(() => {
+      
       this.render()
     })
 }
@@ -63,6 +66,7 @@ debugger
       
       this.newGooddeedBody.value = '' //empty out what is in imput field 
       this.render() 
+      
     })
   } 
 
@@ -73,6 +77,8 @@ debugger
   const newValue = li.innerHTML
   const id = li.dataset.id 
   this.adapter.updateGooddeed(newValue, id)
+  
+  
   }
 
   handleAddGooddeed() {
@@ -80,6 +86,7 @@ debugger
     const body = this.gooddeedInput.value
     this.adapter.createGooddeed(body)
     .then( (gooddeedJSON) => this.gooddeeds.push(new Gooddeed(gooddeedJSON)) )
+    
     .then(  this.render.bind(this) )
     .then( () => this.gooddeedInput.value = '' )
   }
@@ -119,7 +126,8 @@ debugger
   handleDeleteGooddeed() {
     //debugger
     if (event.target.dataset.action === 'delete-gooddeed' && event.target.parentElement.classList.contains("gooddeed-element")) {
-      const gooddeedId = event.target.parentElement.dataset.gooddeedid
+      const gooddeedId = event.target.parentElement.dataset.id
+     //debugger
       this.adapter.deleteGooddeed(gooddeedId)
       .then( resp => this.removeDeletedGooddeed(resp) )
       //something is happening, @@goodbye shows up in the console.

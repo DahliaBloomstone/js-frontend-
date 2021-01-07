@@ -33,7 +33,7 @@ class GooddeedsAdapter {
 
     deleteGooddeed(gooddeedId) {
       const gooddeedDeleteParams = {
-        method: 'DELETE', 
+        method: 'DElETE', 
         headers: {
           "Content-Type": "application/json"
         }
