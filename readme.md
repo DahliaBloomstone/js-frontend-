@@ -6,5 +6,4 @@ This app even has a retro 90's easy keyboard game to play to bring back some nos
 
 This repository is the companion to the backend repo. If you're not familiar with Ruby on Rails, I highly recommend that you go check out that README as well for technology installation instructions.
 
-The user will be greeted upon entering the site, they can add their deed, delete their deed, and have their deeds sorted alphabetically, which is really fun.
-
+The user will be greeted upon entering the site, they can add their deed, delete their deed, and have their deeds sorted alphabetically, which is really fantastic. 
