@@ -6,6 +6,8 @@ body {
     background-color: rgba(0, 0, 255, 0.3);
     color: blue;
     text-shadow: 2px 2px pink;
+    background-image: url("https://media.giphy.com/media/4QZK21zlzVIyc/giphy.gif"); 
+
   }
 
   ul {
@@ -72,6 +74,7 @@ body {
     height: 50px;
     position: absolute;
     width: 50px;
+    background-image: url("https://media.giphy.com/media/4QZK21zlzVIyc/giphy.gif"); 
   }
 
 /*
